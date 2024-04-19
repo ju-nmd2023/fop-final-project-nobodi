@@ -7,7 +7,6 @@ function setup() {
  
 noStroke();
 
-
 class Ufo {
     constructor(x, y) {
         this.x = x;
@@ -15,6 +14,8 @@ class Ufo {
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -2;
+        this.delay = delay;
+        this.timer = 0;
     }
 
     display() {
@@ -31,7 +32,11 @@ class Ufo {
     }
 
     move() {
-        this.x += this.moveSpeed; // Move the UFO to the left
+        if (this.timer >= this.delay) {
+            this.x += this.moveSpeed; // Move the UFO to the left
+        } else {
+            this.timer++;
+        }
     }
 }
 
