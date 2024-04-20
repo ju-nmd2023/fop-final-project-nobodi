@@ -8,7 +8,7 @@ function setup() {
 noStroke();
 
 class Ufo {
-    constructor(x, y) {
+    constructor(x, y, delay) {
         this.x = x;
         this.y = y;
         this.width = 100;
