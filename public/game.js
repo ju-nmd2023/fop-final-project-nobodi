@@ -60,6 +60,10 @@ class Ufo {
 
 }
 
-class Spa () {
-    
+class Spa {
+    constructor() {
+
+    }
+
+
 }
