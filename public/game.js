@@ -1,20 +1,39 @@
 let gameObjects = [];
 
 function setup() {
-    createCanvas(800, 400);
-    setInterval(spawnUfo, 6000);
+    createCanvas(800, 800);
+    setInterval(spawnUfo, 10000);
 }
  
 noStroke();
 
+function draw() {
+    background (0, 10, 30);
+    
+    for (let i = gameObjects.length - 1; i >= 0; i--) {
+        gameObjects[i].display();
+        gameObjects[i].move();
+
+        if (gameObjects[i].x <= -100) {
+            gameObjects.splice(i, 1);
+        }
+    }
+}
+
+function spawnUfo() {
+    let y = Math.random() * height;
+    let newUfo = new Ufo(600, y);
+    gameObjects.push(newUfo);
+}
+
 class Ufo {
-    constructor(x, y, delay) {
+    constructor(x, y) {
         this.x = x;
         this.y = y;
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -2;
-        this.delay = delay;
+        this.delay = Math.random() * 8000; // Delay of 8 seconds
         this.timer = 0;
     }
 
@@ -38,23 +57,4 @@ class Ufo {
             this.timer++;
         }
     }
-}
-
-function draw() {
-    background (0, 10, 30);
-    
-    for (let i = gameObjects.length - 1; i > 0; i--) {
-        gameObjects[i].display();
-        gameObjects[i].move();
-
-        if (gameObjects[i].x <= -100) {
-            gameObjects.splice(i, 1);
-        }
-    }
-}
-
-function spawnUfo() {
-    let y = Math.random() * height;
-    let newUfo = new Ufo(600, y);
-    gameObjects.push(newUfo);
 }
