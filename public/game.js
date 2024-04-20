@@ -2,7 +2,7 @@ let gameObjects = [];
 
 function setup() {
     createCanvas(800, 800);
-    setInterval(spawnUfo, 10000);
+    setInterval(spawnUfo, 8000);
 }
  
 noStroke();
@@ -33,7 +33,7 @@ class Ufo {
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -2;
-        this.delay = Math.random() * 8000; // Delay of 8 seconds
+        this.delay = Math.random() * 3000; // Delay of 3 seconds
         this.timer = 0;
     }
 
