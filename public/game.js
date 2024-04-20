@@ -61,7 +61,7 @@ class Ufo {
 }
 
 class Spa {
-    constructor() {
+    constructor() {x
 
     }
 
