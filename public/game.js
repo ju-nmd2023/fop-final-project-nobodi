@@ -65,5 +65,12 @@ class Spa {
 
     }
 
+    display() {
+
+    }
+
+    move() {
+        
+    }
 
 }
