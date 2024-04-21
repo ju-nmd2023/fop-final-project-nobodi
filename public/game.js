@@ -1,5 +1,5 @@
 let gameObjects = [];
-let x = 300;
+let x = 100;
 let y = 200;
 let spaceshipYSpeed = 0;
 const spaceshipYSpeedIncrement = 5;
@@ -7,8 +7,10 @@ let lightShots = [];
 
 function setup() {
     createCanvas(800, 800);
-    setInterval(spawnUfo, 8000);
+    setInterval(spawnUfo, 3000);
 }
+
+noStroke();
 
 function draw() {
     background (0, 10, 30);
@@ -23,19 +25,19 @@ function draw() {
 
         if (gameObjects[i].x <= -100) {
             gameObjects.splice(i, 1);
-        }
+        } 
+
+        for (let j = lightShots.length - 1; j >= 0; j--) {
+            if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+                gameObjects.splice(i, 1);
+                lightShots.splice(j, 1);
+                break; 
+            } 
+        }      
     }
     
-    // Update spaceship position
     y += spaceshipYSpeed;
-    // Keep the spaceship within the canvas bounds
     y = constrain(y, 75, height - 75);
-}
-
-function spawnUfo() {
-    let y = Math.random() * height;
-    let newUfo = new Ufo(600, y);
-    gameObjects.push(newUfo);
 }
 
 class Ufo {
@@ -45,7 +47,7 @@ class Ufo {
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -2;
-        this.delay = Math.random() * 3000; // Delay of 3 seconds
+        this.delay = 800; // Delay of 8 seconds
         this.timer = 0;
     }
 
@@ -63,12 +65,18 @@ class Ufo {
     }
 
     move() {
+        this.timer++;
         if (this.timer >= this.delay) {
             this.x += this.moveSpeed; // Move the UFO to the left
-        } else {
-            this.timer++;
         }
-    }
+    } 
+}
+
+function spawnUfo() {
+    let y = Math.random() * height;
+    let newUfo = new Ufo(600, y);
+    newUfo.timer = newUfo.delay;
+    gameObjects.push(newUfo);
 }
 
 function spaceship() {
@@ -123,7 +131,7 @@ function keyPressed() {
         spaceshipYSpeed -= spaceshipYSpeedIncrement;
     } else if (keyCode === DOWN_ARROW) {
         spaceshipYSpeed += spaceshipYSpeedIncrement;
-    } else if (key === ' ') { // Space bar
+    } else if (key === ' ') { 
         fireLightShot();
     }
 }
@@ -135,10 +143,10 @@ function keyReleased() {
 }
 
 function fireLightShot() {
-    for (let i = 0; i < 5; i++) { // Create 5 light shots in a line
+    for (let i = 0; i < 5; i++) { 
         let lightShot = {
-            x: x + 200, // Adjust as needed
-            y: y + i * 20 - 40, // Distribute shots along Y axis
+            x: x + 200, 
+            y: y + i * 20 - 40,
             size: 10,
             speed: 10
         };
@@ -161,4 +169,3 @@ function displayLightShots() {
         ellipse(lightShots[i].x, lightShots[i].y, lightShots[i].size);
     }
 }
- 
