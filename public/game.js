@@ -9,7 +9,7 @@ function setup() {
     createCanvas(800, 800);
     setInterval(spawnUfo, 8000);
 }
- 
+
 function draw() {
     background (0, 10, 30);
     spaceship();
@@ -135,13 +135,15 @@ function keyReleased() {
 }
 
 function fireLightShot() {
-    let lightShot = {
-        x: x + 200, // Adjust as needed
-        y: y,
-        size: 10,
-        speed: 10
-    };
-    lightShots.push(lightShot);
+    for (let i = 0; i < 5; i++) { // Create 5 light shots in a line
+        let lightShot = {
+            x: x + 200, // Adjust as needed
+            y: y + i * 20 - 40, // Distribute shots along Y axis
+            size: 10,
+            speed: 10
+        };
+        lightShots.push(lightShot);
+    }
 }
 
 function moveLightShots() {
@@ -159,3 +161,4 @@ function displayLightShots() {
         ellipse(lightShots[i].x, lightShots[i].y, lightShots[i].size);
     }
 }
+ 
