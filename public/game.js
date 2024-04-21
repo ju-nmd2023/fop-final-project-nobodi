@@ -2,10 +2,11 @@ let gameObjects = [];
 
 function setup() {
     createCanvas(800, 800);
-    setInterval(spawnUfo, 8000);
+    setInterval(spawnUfo, 3000);
 }
  
 noStroke();
+
 
 function draw() {
     background (0, 10, 30);
@@ -20,12 +21,6 @@ function draw() {
     }
 }
 
-function spawnUfo() {
-    let y = Math.random() * height;
-    let newUfo = new Ufo(600, y);
-    gameObjects.push(newUfo);
-}
-
 class Ufo {
     constructor(x, y) {
         this.x = x;
@@ -33,7 +28,7 @@ class Ufo {
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -2;
-        this.delay = Math.random() * 3000; // Delay of 3 seconds
+        this.delay = 800; // Delay of 8 seconds
         this.timer = 0;
     }
 
@@ -51,10 +46,15 @@ class Ufo {
     }
 
     move() {
+        this.timer++;
         if (this.timer >= this.delay) {
             this.x += this.moveSpeed; // Move the UFO to the left
-        } else {
-            this.timer++;
         }
-    }
+    } 
+}
+
+function spawnUfo() {
+    let y = Math.random() * height;
+    let newUfo = new Ufo(600, y);
+    gameObjects.push(newUfo);
 }
