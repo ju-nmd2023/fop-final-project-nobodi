@@ -3,6 +3,7 @@ let x = 300;
 let y = 200;
 let spaceshipYSpeed = 0;
 const spaceshipYSpeedIncrement = 5;
+let lightShots = [];
 
 function setup() {
     createCanvas(800, 800);
@@ -13,6 +14,8 @@ function draw() {
     background (0, 10, 30);
     spaceship();
     jets();
+    moveLightShots();
+    displayLightShots();
     
     for (let i = gameObjects.length - 1; i >= 0; i--) {
         gameObjects[i].display();
@@ -120,11 +123,39 @@ function keyPressed() {
         spaceshipYSpeed -= spaceshipYSpeedIncrement;
     } else if (keyCode === DOWN_ARROW) {
         spaceshipYSpeed += spaceshipYSpeedIncrement;
+    } else if (key === ' ') { // Space bar
+        fireLightShot();
     }
 }
 
 function keyReleased() {
     if (keyCode === UP_ARROW || keyCode === DOWN_ARROW) {
         spaceshipYSpeed = 0;
+    }
+}
+
+function fireLightShot() {
+    let lightShot = {
+        x: x + 200, // Adjust as needed
+        y: y,
+        size: 10,
+        speed: 10
+    };
+    lightShots.push(lightShot);
+}
+
+function moveLightShots() {
+    for (let i = lightShots.length - 1; i >= 0; i--) {
+        lightShots[i].x += lightShots[i].speed;
+        if (lightShots[i].x > width) {
+            lightShots.splice(i, 1);
+        }
+    }
+}
+
+function displayLightShots() {
+    fill(255, 255, 0);
+    for (let i = 0; i < lightShots.length; i++) {
+        ellipse(lightShots[i].x, lightShots[i].y, lightShots[i].size);
     }
 }
