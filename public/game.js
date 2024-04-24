@@ -33,10 +33,7 @@ function draw() {
                 lightShots.splice(j, 1);
                 break; 
             } 
-        }
-    
-
-        
+        }      
     }
     
     y += spaceshipYSpeed;
