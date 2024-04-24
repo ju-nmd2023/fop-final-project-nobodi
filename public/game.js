@@ -2,8 +2,9 @@ let gameObjects = [];
 let x = 100;
 let y = 200;
 let spaceshipYSpeed = 0;
-const spaceshipYSpeedIncrement = 5;
+const spaceshipYSpeedIncrement = 20;
 let lightShots = [];
+let scaleFactor = 0.5;
 
 function setup() {
     createCanvas(800, 800);
@@ -15,7 +16,7 @@ noStroke();
 function draw() {
     background (0, 10, 30);
     spaceship();
-    jets();
+    // jets();
     moveLightShots();
     displayLightShots();
     
@@ -33,7 +34,8 @@ function draw() {
                 lightShots.splice(j, 1);
                 break; 
             } 
-        }      
+        }
+      
     }
     
     y += spaceshipYSpeed;
@@ -82,49 +84,49 @@ function spawnUfo() {
 function spaceship() {
     push();
     fill(20, 0, 220);
-    quad(x, y-75, x, y+75, x-75, y+50, x-75, y-50);
-    quad(x, y-75, x, y+75, x+200, y+25, x+200, y-25);
-    rect(x, y-130, 30, 80);
-    rect(x, y+50, 30, 80);
-    rect(x-75, y-150, 250, 50);
-    rect(x-75, y+100, 250, 50);
+    quad(x, y - 75 * scaleFactor, x, y + 75 * scaleFactor, x - 75 * scaleFactor, y + 50 * scaleFactor, x - 75 * scaleFactor, y - 50 * scaleFactor);
+    quad(x, y - 75 * scaleFactor, x, y + 75 * scaleFactor, x + 200 * scaleFactor, y + 25 * scaleFactor, x + 200 * scaleFactor, y - 25 * scaleFactor);
+    rect(x, y - 130 * scaleFactor, 30 * scaleFactor, 80 * scaleFactor);
+    rect(x, y + 50 * scaleFactor, 30 * scaleFactor, 80 * scaleFactor);
+    rect(x - 75 * scaleFactor, y - 150 * scaleFactor, 250 * scaleFactor, 50 * scaleFactor);
+    rect(x - 75 * scaleFactor, y + 100 * scaleFactor, 250 * scaleFactor, 50 * scaleFactor);
     fill(0, 200, 255);
-    ellipse(x+100, y, 100, 50);
+    ellipse(x + 100 * scaleFactor, y, 100 * scaleFactor, 50 * scaleFactor);
     pop();
 }
 
-function jets() {
-    // yellow
-    push();
-    fill(255, 255, 0);
-    beginShape();
-    vertex(x-80, y+40);
-    bezierVertex(x-80, y+40, x-500, y, x-80, y-40);
-    endShape();
-    beginShape();
-    vertex(x-80, y-110);
-    bezierVertex(x-80, y-110, x-400, y-125, x-80, y-140);
-    endShape();
-    beginShape();
-    vertex(x-80, y+110);
-    bezierVertex(x-80, y+110, x-400, y+125, x-80, y+140);
-    endShape();
-    pop();
-    // orange
-    fill(255, 180, 0);
-    beginShape();
-    vertex(x-80, y+30);
-    bezierVertex(x-80, y+30, x-300, y, x-80, y-30);
-    endShape();
-    beginShape();
-    vertex(x-80, y-115);
-    bezierVertex(x-80, y-115, x-250, y-125, x-80, y-135);
-    endShape();
-    beginShape();
-    vertex(x-80, y+115);
-    bezierVertex(x-80, y+115, x-250, y+125, x-80, y+135);
-    endShape();
-}
+// function jets() {
+//     // yellow
+//     push();
+//     fill(255, 255, 0);
+//     beginShape();
+//     vertex(x-80, y+40);
+//     bezierVertex(x-80, y+40, x-500, y, x-80, y-40);
+//     endShape();
+//     beginShape();
+//     vertex(x-80, y-110);
+//     bezierVertex(x-80, y-110, x-400, y-125, x-80, y-140);
+//     endShape();
+//     beginShape();
+//     vertex(x-80, y+110);
+//     bezierVertex(x-80, y+110, x-400, y+125, x-80, y+140);
+//     endShape();
+//     pop();
+//     // orange
+//     fill(255, 180, 0);
+//     beginShape();
+//     vertex(x-80, y+30);
+//     bezierVertex(x-80, y+30, x-300, y, x-80, y-30);
+//     endShape();
+//     beginShape();
+//     vertex(x-80, y-115);
+//     bezierVertex(x-80, y-115, x-250, y-125, x-80, y-135);
+//     endShape();
+//     beginShape();
+//     vertex(x-80, y+115);
+//     bezierVertex(x-80, y+115, x-250, y+125, x-80, y+135);
+//     endShape();
+// }
 
 function keyPressed() {
     if (keyCode === UP_ARROW) {
