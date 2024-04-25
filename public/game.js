@@ -23,21 +23,23 @@ function draw() {
     displayLightShots();
     
     for (let i = gameObjects.length - 1; i >= 0; i--) {
-        gameObjects[i].display();
-        gameObjects[i].move();
+        if (gameObjects[i] instanceof Ufo) {
+            gameObjects[i].display();
+            gameObjects[i].move();
 
-        if (gameObjects[i].x <= -100) {
-            gameObjects.splice(i, 1);
-        } 
-
-        for (let j = lightShots.length - 1; j >= 0; j--) {
-            if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+            if (gameObjects[i].x <= -100) {
                 gameObjects.splice(i, 1);
-                lightShots.splice(j, 1);
-                break; 
             } 
-        }
 
+            for (let j = lightShots.length - 1; j >= 0; j--) {
+                if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 40) {
+                    gameObjects.splice(i, 1);
+                    lightShots.splice(j, 1);
+                    break; 
+                } 
+            }
+        }
+        
         if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 50) {
             health -= 10;
             if (health <= 0) {
