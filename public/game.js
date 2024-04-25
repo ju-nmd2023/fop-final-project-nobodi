@@ -4,7 +4,8 @@ let y = 200;
 let spaceshipYSpeed = 0;
 const spaceshipYSpeedIncrement = 20;
 let lightShots = [];
-let scaleFactor = 0.5;
+let scaleFactor = 0.3;
+let health = 100;
 
 function setup() {
     createCanvas(800, 800);
@@ -17,6 +18,7 @@ function draw() {
     background (0, 10, 30);
     spaceship();
     // jets();
+    healthBar();
     moveLightShots();
     displayLightShots();
     
@@ -34,6 +36,13 @@ function draw() {
                 lightShots.splice(j, 1);
                 break; 
             } 
+        }
+
+        if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 50) {
+            health -= 10;
+            if (health <= 0) {
+                gameOver();
+            }
         }
       
     }
@@ -147,7 +156,7 @@ function keyReleased() {
 function fireLightShot() {
     for (let i = 0; i < 5; i++) { 
         let lightShot = {
-            x: x + 200, 
+            x: x + 60, 
             y: y + i * 20 - 40,
             size: 10,
             speed: 10
@@ -170,4 +179,18 @@ function displayLightShots() {
     for (let i = 0; i < lightShots.length; i++) {
         ellipse(lightShots[i].x, lightShots[i].y, lightShots[i].size);
     }
+}
+
+function healthBar() {
+    push();
+    fill(0, 255, 0);
+    rect(10, 100, 0, 100);
+    fill(255, 0, 0);
+    let healthBarWidth = map(health, 0, 100, 0, 100);
+    rect(10, 10, healthBarWidth, 10);
+    pop();
+}
+
+function gameOver() {
+    consoleLog('GAME OVER');
 }
