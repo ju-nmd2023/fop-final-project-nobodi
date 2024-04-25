@@ -194,5 +194,5 @@ function healthBar() {
 }
 
 function gameOver() {
-    consoleLog('GAME OVER');
+    console.log('GAME OVER');
 }
