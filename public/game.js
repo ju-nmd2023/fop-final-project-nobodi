@@ -2,14 +2,23 @@ let gameObjects = [];
 let x = 100;
 let y = 200;
 let spaceshipYSpeed = 0;
-const spaceshipYSpeedIncrement = 20;
+const spaceshipYSpeedIncrement = 10;
 let lightShots = [];
-let scaleFactor = 0.3;
-let health = 100;
+let score = 0;
+let lives = 2;
+let level = 1;
 
 function setup() {
     createCanvas(800, 800);
     setInterval(spawnUfo, 3000);
+    createStatScreen(); 
+}
+
+function spawnUfo() {
+    let y = Math.random() * height;
+    let newUfo = new Ufo(600, y);
+    newUfo.timer = newUfo.delay;
+    gameObjects.push(newUfo);
 }
 
 noStroke();
@@ -19,6 +28,7 @@ function draw() {
     spaceship();
     // jets();
     healthBar();
+    jets();
     moveLightShots();
     displayLightShots();
     
@@ -27,30 +37,24 @@ function draw() {
             gameObjects[i].display();
             gameObjects[i].move();
 
-            if (gameObjects[i].x <= -100) {
-                gameObjects.splice(i, 1);
-            } 
+        if (gameObjects[i].x <= -100) {
+            gameObjects.splice(i, 1);
+        } 
 
-            for (let j = lightShots.length - 1; j >= 0; j--) {
-                if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 40) {
-                    gameObjects.splice(i, 1);
-                    lightShots.splice(j, 1);
-                    break; 
-                } 
-            }
-        }
-        
-        if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 50) {
-            health -= 10;
-            if (health <= 0) {
-                gameOver();
-            }
-        }
-      
+        for (let j = lightShots.length - 1; j >= 0; j--) {
+            if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+                gameObjects.splice(i, 1);
+                lightShots.splice(j, 1);
+                score += 10; // Increase score when UFO is destroyed
+                break; 
+            } 
+        }      
     }
     
     y += spaceshipYSpeed;
     y = constrain(y, 75, height - 75);
+    
+    updateStatScreen(); // Update the stat screen
 }
 
 class Ufo {
@@ -59,7 +63,7 @@ class Ufo {
         this.y = y;
         this.width = 100;
         this.height = 50;
-        this.moveSpeed = -2;
+        this.moveSpeed = -5;
         this.delay = 800; // Delay of 8 seconds
         this.timer = 0;
     }
@@ -85,59 +89,52 @@ class Ufo {
     } 
 }
 
-function spawnUfo() {
-    let y = Math.random() * height;
-    let newUfo = new Ufo(600, y);
-    newUfo.timer = newUfo.delay;
-    gameObjects.push(newUfo);
-}
-
 function spaceship() {
     push();
     fill(20, 0, 220);
-    quad(x, y - 75 * scaleFactor, x, y + 75 * scaleFactor, x - 75 * scaleFactor, y + 50 * scaleFactor, x - 75 * scaleFactor, y - 50 * scaleFactor);
-    quad(x, y - 75 * scaleFactor, x, y + 75 * scaleFactor, x + 200 * scaleFactor, y + 25 * scaleFactor, x + 200 * scaleFactor, y - 25 * scaleFactor);
-    rect(x, y - 130 * scaleFactor, 30 * scaleFactor, 80 * scaleFactor);
-    rect(x, y + 50 * scaleFactor, 30 * scaleFactor, 80 * scaleFactor);
-    rect(x - 75 * scaleFactor, y - 150 * scaleFactor, 250 * scaleFactor, 50 * scaleFactor);
-    rect(x - 75 * scaleFactor, y + 100 * scaleFactor, 250 * scaleFactor, 50 * scaleFactor);
+    quad(x, y-75, x, y+75, x-75, y+50, x-75, y-50);
+    quad(x, y-75, x, y+75, x+200, y+25, x+200, y-25);
+    rect(x, y-130, 30, 80);
+    rect(x, y+50, 30, 80);
+    rect(x-75, y-150, 250, 50);
+    rect(x-75, y+100, 250, 50);
     fill(0, 200, 255);
-    ellipse(x + 100 * scaleFactor, y, 100 * scaleFactor, 50 * scaleFactor);
+    ellipse(x+100, y, 100, 50);
     pop();
 }
 
-// function jets() {
-//     // yellow
-//     push();
-//     fill(255, 255, 0);
-//     beginShape();
-//     vertex(x-80, y+40);
-//     bezierVertex(x-80, y+40, x-500, y, x-80, y-40);
-//     endShape();
-//     beginShape();
-//     vertex(x-80, y-110);
-//     bezierVertex(x-80, y-110, x-400, y-125, x-80, y-140);
-//     endShape();
-//     beginShape();
-//     vertex(x-80, y+110);
-//     bezierVertex(x-80, y+110, x-400, y+125, x-80, y+140);
-//     endShape();
-//     pop();
-//     // orange
-//     fill(255, 180, 0);
-//     beginShape();
-//     vertex(x-80, y+30);
-//     bezierVertex(x-80, y+30, x-300, y, x-80, y-30);
-//     endShape();
-//     beginShape();
-//     vertex(x-80, y-115);
-//     bezierVertex(x-80, y-115, x-250, y-125, x-80, y-135);
-//     endShape();
-//     beginShape();
-//     vertex(x-80, y+115);
-//     bezierVertex(x-80, y+115, x-250, y+125, x-80, y+135);
-//     endShape();
-// }
+function jets() {
+    // yellow
+    push();
+    fill(255, 255, 0);
+    beginShape();
+    vertex(x-80, y+40);
+    bezierVertex(x-80, y+40, x-500, y, x-80, y-40);
+    endShape();
+    beginShape();
+    vertex(x-80, y-110);
+    bezierVertex(x-80, y-110, x-400, y-125, x-80, y-140);
+    endShape();
+    beginShape();
+    vertex(x-80, y+110);
+    bezierVertex(x-80, y+110, x-400, y+125, x-80, y+140);
+    endShape();
+    pop();
+    // orange
+    fill(255, 180, 0);
+    beginShape();
+    vertex(x-80, y+30);
+    bezierVertex(x-80, y+30, x-300, y, x-80, y-30);
+    endShape();
+    beginShape();
+    vertex(x-80, y-115);
+    bezierVertex(x-80, y-115, x-250, y-125, x-80, y-135);
+    endShape();
+    beginShape();
+    vertex(x-80, y+115);
+    bezierVertex(x-80, y+115, x-250, y+125, x-80, y+135);
+    endShape();
+}
 
 function keyPressed() {
     if (keyCode === UP_ARROW) {
@@ -158,7 +155,7 @@ function keyReleased() {
 function fireLightShot() {
     for (let i = 0; i < 5; i++) { 
         let lightShot = {
-            x: x + 60, 
+            x: x + 200, 
             y: y + i * 20 - 40,
             size: 10,
             speed: 10
@@ -195,4 +192,21 @@ function healthBar() {
 
 function gameOver() {
     console.log('GAME OVER');
+}
+    } 
+
+
+function createStatScreen() {
+    let statDiv = createDiv('');
+    statDiv.id('statDiv');
+    statDiv.style('position', 'absolute');
+    statDiv.style('top', '20px');
+    statDiv.style('left', '20px');
+    statDiv.style('color', 'white');
+    statDiv.style('font-size', '20px');
+}
+
+function updateStatScreen() {
+    let statDiv = select('#statDiv');
+    statDiv.html(`Score: ${score}<br>Lives: ${lives}<br>Level: ${level}`);
 }
