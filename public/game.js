@@ -2,12 +2,16 @@ let gameObjects = [];
 let x = 100;
 let y = 200;
 let spaceshipYSpeed = 0;
-const spaceshipYSpeedIncrement = 5;
+const spaceshipYSpeedIncrement = 10;
 let lightShots = [];
+let score = 0;
+let lives = 2;
+let level = 1;
 
 function setup() {
     createCanvas(800, 800);
     setInterval(spawnUfo, 3000);
+    createStatScreen(); 
 }
 
 noStroke();
@@ -31,6 +35,7 @@ function draw() {
             if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
                 gameObjects.splice(i, 1);
                 lightShots.splice(j, 1);
+                score += 10; // Increase score when UFO is destroyed
                 break; 
             } 
         }      
@@ -38,6 +43,8 @@ function draw() {
     
     y += spaceshipYSpeed;
     y = constrain(y, 75, height - 75);
+    
+    updateStatScreen(); // Update the stat screen
 }
 
 class Ufo {
@@ -46,7 +53,7 @@ class Ufo {
         this.y = y;
         this.width = 100;
         this.height = 50;
-        this.moveSpeed = -2;
+        this.moveSpeed = -5;
         this.delay = 800; // Delay of 8 seconds
         this.timer = 0;
     }
@@ -167,5 +174,21 @@ function displayLightShots() {
     fill(255, 255, 0);
     for (let i = 0; i < lightShots.length; i++) {
         ellipse(lightShots[i].x, lightShots[i].y, lightShots[i].size);
-    }
+    } 
 }
+
+function createStatScreen() {
+    let statDiv = createDiv('');
+    statDiv.id('statDiv');
+    statDiv.style('position', 'absolute');
+    statDiv.style('top', '20px');
+    statDiv.style('left', '20px');
+    statDiv.style('color', 'white');
+    statDiv.style('font-size', '20px');
+}
+
+function updateStatScreen() {
+    let statDiv = select('#statDiv');
+    statDiv.html(`Score: ${score}<br>Lives: ${lives}<br>Level: ${level}`);
+}
+ 
