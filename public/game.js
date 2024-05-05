@@ -7,6 +7,7 @@ let lightShots = [];
 let score = 0;
 let lives = 2;
 let level = 1;
+let health = 100;
 
 function setup() {
     createCanvas(800, 800);
@@ -37,24 +38,25 @@ function draw() {
             gameObjects[i].display();
             gameObjects[i].move();
 
-        if (gameObjects[i].x <= -100) {
+            if (gameObjects[i].x <= -100) {
             gameObjects.splice(i, 1);
-        } 
-
-        for (let j = lightShots.length - 1; j >= 0; j--) {
-            if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
-                gameObjects.splice(i, 1);
-                lightShots.splice(j, 1);
-                score += 10; // Increase score when UFO is destroyed
-                break; 
             } 
-        }      
+
+            for (let j = lightShots.length - 1; j >= 0; j--) {
+                if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+                    gameObjects.splice(i, 1);
+                    lightShots.splice(j, 1);
+                    score += 10; // Increase score when UFO is destroyed
+                    break; 
+                } 
+            }      
     }
-    
     y += spaceshipYSpeed;
     y = constrain(y, 75, height - 75);
     
     updateStatScreen(); // Update the stat screen
+    
+    }
 }
 
 class Ufo {
@@ -192,8 +194,7 @@ function healthBar() {
 
 function gameOver() {
     console.log('GAME OVER');
-}
-    } 
+} 
 
 
 function createStatScreen() {
