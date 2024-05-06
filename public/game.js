@@ -93,15 +93,20 @@ class Ufo {
 
 function spaceship() {
     push();
+    let scaleFactor = 0.1; // Scale factor to downsize the spaceship
+    let scaledX = x * scaleFactor;
+    let scaledY = y * scaleFactor;
+
+    translate(scaledX, scaledY);
     fill(20, 0, 220);
-    quad(x, y-75, x, y+75, x-75, y+50, x-75, y-50);
-    quad(x, y-75, x, y+75, x+200, y+25, x+200, y-25);
-    rect(x, y-130, 30, 80);
-    rect(x, y+50, 30, 80);
-    rect(x-75, y-150, 250, 50);
-    rect(x-75, y+100, 250, 50);
+    quad(0, -37.5, 0, 37.5, -37.5, 25, -37.5, -25);
+    quad(0, -37.5, 0, 37.5, 100, 12.5, 100, -12.5);
+    rect(0, -65, 15, 40);
+    rect(0, 25, 15, 40);
+    rect(-37.5, -75, 125, 25);
+    rect(-37.5, 50, 125, 25);
     fill(0, 200, 255);
-    ellipse(x+100, y, 100, 50);
+    ellipse(50, 0, 50, 25);
     pop();
 }
 
