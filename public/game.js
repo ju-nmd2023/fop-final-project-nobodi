@@ -13,7 +13,7 @@ let startButton;
 let stars = [];
 
 function setup() {
-    createCanvas(800, 800);
+    createCanvas(800, 500);
     setInterval(spawnUfo, 3000);
     createStatScreen();
     createStartScreen();
@@ -38,18 +38,16 @@ function draw() {
                 gameObjects[i].display();
                 gameObjects[i].move();
 
-                if (gameObjects[i].x <= -100) {
-                    gameObjects.splice(i, 1);
-                }
-
+                // Collision Spaceship/UFO
                 if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 200) {
                     gameOver();
+                    console.log(x + "," + y);
                 }
 
+                // Contact Light shot/UFO
                 for (let j = lightShots.length - 1; j >= 0; j--) {
                     if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
                         gameObjects.splice(i, 1);
-                        lightShots.splice(j, 1);
                         score += 10;
                         break;
                     }
@@ -216,7 +214,7 @@ function gameOver() {
     textAlign(CENTER);
     textSize(50);
     fill(255);
-    text("Game Over", width / 3, height / 3); 
+    text("Game Over", width / 2, height / 2); 
 }
 
 function createStartScreen() {
