@@ -18,8 +18,7 @@ function setup() {
     createStatScreen();
     createStartScreen();
     generateStars(); 
-
-noStroke();
+    noStroke();
 } 
 
 function draw() {
