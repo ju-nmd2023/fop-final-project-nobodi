@@ -19,7 +19,7 @@ function setup() {
     createStartScreen();
     generateStars(); 
     noStroke();
-} 
+}
 
 function draw() {
     if (!gameStarted) {
