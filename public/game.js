@@ -13,7 +13,7 @@ let startButton;
 let stars = [];
 
 function setup() {
-    createCanvas(800, 500);
+    createCanvas(800, 800);
     setInterval(spawnUfo, 3000);
     createStatScreen();
     createStartScreen();
