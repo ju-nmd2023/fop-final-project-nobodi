@@ -218,7 +218,7 @@ function gameOver() {
 
 function createStartScreen() {
     startButton = createButton('Start');
-    startButton.position(width / 2 - 50, height / 2);
+    startButton.position(width / 2, height / 2);
     startButton.mousePressed(startGame);
 }
 

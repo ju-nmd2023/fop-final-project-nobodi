@@ -1,3 +1,8 @@
+
+
+let x = 600;
+let y = 200;
+
 function ufo() {
     fill(200, 0, 0);
     arc(x, y, 400, 200, PI, PI + PI, PIE);
