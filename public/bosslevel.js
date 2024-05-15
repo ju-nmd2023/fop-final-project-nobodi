@@ -1,3 +1,4 @@
+let mothership;
 let gameObjects = [];
 let x = 100;
 let y = 200;
@@ -14,21 +15,24 @@ let stars = [];
 
 function setup() {
     createCanvas(800, 500);
-    setInterval(spawnUfo, 3000);
+    // setInterval(spawnUfo, 3000);
+    mothership = new Mothership(width, random(100, 400));
     createStatScreen();
     generateStars(); 
     noStroke();
 } 
 
-class Ufo {
+class Mothership {
     constructor(x, y) {
-        this.x = x;
+        this.x = 600;
         this.y = y;
         this.width = 100;
         this.height = 50;
         this.moveSpeed = -5;
+        this.verticalSpeed = 3;
         this.delay = 800;
         this.timer = 0;
+        this.verticalDirection = 1;
     }
 
     display() {
@@ -48,6 +52,10 @@ class Ufo {
         this.timer++;
         if (this.timer >= this.delay) {
             this.x += this.moveSpeed; 
+            this.y += this.verticalSpeed * this.verticalDirection;
+        }
+        if (this.y <= 100 || this.y >= 400) {
+            this.verticalDirection *= -1;
         }
     }
 }
@@ -60,18 +68,21 @@ function draw() {
         moveLightShots();
         displayLightShots();
 
+        mothership.display();
+        mothership.move();
+
         if (!gameOverFlag) {
             for (let i = gameObjects.length - 1; i >= 0; i--) {
                 gameObjects[i].display();
                 gameObjects[i].move();
 
-                // Collision Spaceship/UFO
+                // ---
                 if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 200) {
                     gameOver();
                     console.log(x + "," + y);
                 }
 
-                // Contact Light shot/UFO
+                // Contact Light shot/Mothership (unfin)
                 for (let j = lightShots.length - 1; j >= 0; j--) {
                     if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
                         gameObjects.splice(i, 1);
@@ -89,12 +100,12 @@ function draw() {
     }
 }
 
-function spawnUfo() {
+/* function spawnUfo() {
     let y = Math.random() * height;
     let newUfo = new Ufo(600, y);
     newUfo.timer = newUfo.delay;
     gameObjects.push(newUfo);
-}
+} */
 
 function spaceship() {
     push();
