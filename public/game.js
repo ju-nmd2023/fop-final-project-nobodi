@@ -13,7 +13,7 @@ let startButton;
 let stars = [];
 
 function setup() {
-    createCanvas(800, 500);
+    createCanvas(1200, 600);
     setInterval(spawnUfo, 3000);
     createStatScreen();
     createStartScreen();
@@ -95,7 +95,7 @@ class Ufo {
 
 function spawnUfo() {
     let y = Math.random() * height;
-    let newUfo = new Ufo(600, y);
+    let newUfo = new Ufo(1200, y);
     newUfo.timer = newUfo.delay;
     gameObjects.push(newUfo);
 }
@@ -227,8 +227,8 @@ function startGame() {
     startButton.remove(); // Remove the start button
 }
 
-function drawStartScreen() {
-    background(0);
+function drawStartScreen() { 
+    background(0); 
     textAlign(CENTER);
     textSize(50);
     fill(255);

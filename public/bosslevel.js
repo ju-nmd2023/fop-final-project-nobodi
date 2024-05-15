@@ -26,8 +26,8 @@ class Mothership {
     constructor(x, y) {
         this.x = 600;
         this.y = y;
-        this.width = 100;
-        this.height = 50;
+        this.width = 200;
+        this.height = 100;
         this.moveSpeed = -5;
         this.verticalSpeed = 3;
         this.delay = 800;
@@ -37,15 +37,15 @@ class Mothership {
 
     display() {
         fill(200, 0, 0);
-        arc(this.x, this.y, 100, 50, PI, PI + PI, PIE);
+        arc(this.x, this.y + 20, this.width, this.height, PI, PI + PI, PIE);
         fill(0, 200, 255);
-        arc(this.x, this.y - 20, 60, 60, PI, PI + PI, PIE);
+        arc(this.x, this.y - 20, this.width * 0.2, this.height * 0.4, PI, PI + PI, PIE);
         fill(255, 255, 0);
-        ellipse(this.x, this.y - 10, 10);
-        ellipse(this.x - 20, this.y - 10, 10);
-        ellipse(this.x - 35, this.y - 10, 10);
-        ellipse(this.x + 20, this.y - 10, 10);
-        ellipse(this.x + 35, this.y - 10, 10);
+        ellipse(this.x, this.y, 20);
+        ellipse(this.x - 65, this.y, 20);
+        ellipse(this.x - 35, this.y, 20);
+        ellipse(this.x + 35, this.y, 20);
+        ellipse(this.x + 65, this.y, 20);
     }
 
     move() {
@@ -59,6 +59,7 @@ class Mothership {
         }
     }
 }
+
 
 function draw() {
     if (!gameStarted) {
