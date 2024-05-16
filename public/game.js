@@ -103,17 +103,17 @@ function spawnUfo() {
 function spaceship() {
     push();
     fill(20, 0, 220);
-    quad(x, y - 75, x, y + 75, x - 75, y + 50, x - 75, y - 50);
-    quad(x, y - 75, x, y + 75, x + 200, y + 25, x + 200, y - 25);
-    rect(x, y - 130, 30, 80);
-    rect(x, y + 50, 30, 80);
-    rect(x - 75, y - 150, 250, 50);
-    rect(x - 75, y + 100, 250, 50);
+    quad(x, y - 37.5, x, y + 37.5, x - 37.5, y + 25, x - 37.5, y - 20);
+    quad(x, y - 37.5, x, y + 37.5, x + 100, y + 12.5, x + 100, y - 12.5);
+    rect(x, y - 65, 15, 40);
+    rect(x, y + 25, 15, 40);
+    rect(x - 37.5, y - 75, 125, 25);
+    rect(x - 37.5, y + 50, 125, 25);
     fill(0, 200, 255);
-    ellipse(x + 100, y, 100, 50);
+    ellipse(x + 50, y, 50, 25);
     pop();
 }
-
+/*
 function jets() {
     // yellow
     push();
@@ -146,6 +146,39 @@ function jets() {
     bezierVertex(x - 80, y + 115, x - 250, y + 125, x - 80, y + 135);
     endShape();
 }
+*/
+function jets() {
+    // yellow
+    push();
+    fill(255, 255, 0);
+    beginShape();
+    vertex(x - 40, y + 20);
+    bezierVertex(x - 40, y + 20, x - 250, y, x - 40, y - 20);
+    endShape();
+    beginShape();
+    vertex(x - 40, y - 55);
+    bezierVertex(x - 40, y - 55, x - 200, y - 62.5, x - 40, y - 70);
+    endShape();
+    beginShape();
+    vertex(x - 40, y + 55);
+    bezierVertex(x - 40, y + 55, x - 200, y + 62.5, x - 40, y + 70);
+    endShape();
+    pop();
+    // orange
+    fill(255, 180, 0);
+    beginShape();
+    vertex(x - 40, y + 15);
+    bezierVertex(x - 40, y + 15, x - 150, y, x - 40, y - 15);
+    endShape();
+    beginShape();
+    vertex(x - 40, y - 57.5);
+    bezierVertex(x - 40, y - 57.5, x - 125, y - 62.5, x - 40, y - 67.5);
+    endShape();
+    beginShape();
+    vertex(x - 40, y + 57.5);
+    bezierVertex(x - 40, y + 57.5, x - 125, y + 62.5, x - 40, y + 67.5);
+    endShape();
+}
 
 function keyPressed() {
     if (keyCode === UP_ARROW) {
@@ -166,7 +199,7 @@ function keyReleased() {
 function fireLightShot() {
     for (let i = 0; i < 5; i++) {
         let lightShot = {
-            x: x + 200,
+            x: x + 100,
             y: y + i * 20 - 40,
             size: 10,
             speed: 10

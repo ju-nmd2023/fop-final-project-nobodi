@@ -111,14 +111,14 @@ function draw() {
 function spaceship() {
     push();
     fill(20, 0, 220);
-    quad(x, y - 75, x, y + 75, x - 75, y + 50, x - 75, y - 50);
-    quad(x, y - 75, x, y + 75, x + 200, y + 25, x + 200, y - 25);
-    rect(x, y - 130, 30, 80);
-    rect(x, y + 50, 30, 80);
-    rect(x - 75, y - 150, 250, 50);
-    rect(x - 75, y + 100, 250, 50);
+    quad(x, y - 37.5, x, y + 37.5, x - 37.5, y + 25, x - 37.5, y - 20);
+    quad(x, y - 37.5, x, y + 37.5, x + 100, y + 12.5, x + 100, y - 12.5);
+    rect(x, y - 65, 15, 40);
+    rect(x, y + 25, 15, 40);
+    rect(x - 37.5, y - 75, 125, 25);
+    rect(x - 37.5, y + 50, 125, 25);
     fill(0, 200, 255);
-    ellipse(x + 100, y, 100, 50);
+    ellipse(x + 50, y, 50, 25);
     pop();
 }
 
