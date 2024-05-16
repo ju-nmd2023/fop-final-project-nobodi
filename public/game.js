@@ -113,40 +113,7 @@ function spaceship() {
     ellipse(x + 50, y, 50, 25);
     pop();
 }
-/*
-function jets() {
-    // yellow
-    push();
-    fill(255, 255, 0);
-    beginShape();
-    vertex(x - 80, y + 40);
-    bezierVertex(x - 80, y + 40, x - 500, y, x - 80, y - 40);
-    endShape();
-    beginShape();
-    vertex(x - 80, y - 110);
-    bezierVertex(x - 80, y - 110, x - 400, y - 125, x - 80, y - 140);
-    endShape();
-    beginShape();
-    vertex(x - 80, y + 110);
-    bezierVertex(x - 80, y + 110, x - 400, y + 125, x - 80, y + 140);
-    endShape();
-    pop();
-    // orange
-    fill(255, 180, 0);
-    beginShape();
-    vertex(x - 80, y + 30);
-    bezierVertex(x - 80, y + 30, x - 300, y, x - 80, y - 30);
-    endShape();
-    beginShape();
-    vertex(x - 80, y - 115);
-    bezierVertex(x - 80, y - 115, x - 250, y - 125, x - 80, y - 135);
-    endShape();
-    beginShape();
-    vertex(x - 80, y + 115);
-    bezierVertex(x - 80, y + 115, x - 250, y + 125, x - 80, y + 135);
-    endShape();
-}
-*/
+
 function jets() {
     // yellow
     push();

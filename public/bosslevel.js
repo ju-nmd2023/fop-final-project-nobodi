@@ -22,6 +22,39 @@ function setup() {
     noStroke();
 } 
 
+function jets() {
+    // yellow
+    push();
+    fill(255, 255, 0);
+    beginShape();
+    vertex(x - 40, y + 20);
+    bezierVertex(x - 40, y + 20, x - 250, y, x - 40, y - 20);
+    endShape();
+    beginShape();
+    vertex(x - 40, y - 55);
+    bezierVertex(x - 40, y - 55, x - 200, y - 62.5, x - 40, y - 70);
+    endShape();
+    beginShape();
+    vertex(x - 40, y + 55);
+    bezierVertex(x - 40, y + 55, x - 200, y + 62.5, x - 40, y + 70);
+    endShape();
+    pop();
+    // orange
+    fill(255, 180, 0);
+    beginShape();
+    vertex(x - 40, y + 15);
+    bezierVertex(x - 40, y + 15, x - 150, y, x - 40, y - 15);
+    endShape();
+    beginShape();
+    vertex(x - 40, y - 57.5);
+    bezierVertex(x - 40, y - 57.5, x - 125, y - 62.5, x - 40, y - 67.5);
+    endShape();
+    beginShape();
+    vertex(x - 40, y + 57.5);
+    bezierVertex(x - 40, y + 57.5, x - 125, y + 62.5, x - 40, y + 67.5);
+    endShape();
+}
+
 class Mothership {
     constructor(x, y) {
         this.x = 600;
@@ -66,6 +99,7 @@ function draw() {
         background(0, 10, 30);
         drawStars();
         spaceship();
+        jets();
         moveLightShots();
         displayLightShots();
 
@@ -141,7 +175,7 @@ function keyReleased() {
 function fireLightShot() {
     for (let i = 0; i < 5; i++) {
         let lightShot = {
-            x: x + 200,
+            x: x + 100,
             y: y + i * 20 - 40,
             size: 10,
             speed: 10
