@@ -61,9 +61,7 @@ class Mothership {
         this.y = y;
         this.width = 200;
         this.height = 100;
-        this.moveSpeed = -5;
-        this.verticalSpeed = 3;
-        this.delay = 800;
+        this.verticalSpeed = 6;
         this.timer = 0;
         this.verticalDirection = 1;
     }
@@ -83,8 +81,7 @@ class Mothership {
 
     move() {
         this.timer++;
-        if (this.timer >= this.delay) {
-            this.x += this.moveSpeed; 
+        if (this.timer) {
             this.y += this.verticalSpeed * this.verticalDirection;
         }
         if (this.y <= 100 || this.y >= 400) {
