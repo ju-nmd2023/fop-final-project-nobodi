@@ -10,6 +10,7 @@ let level = 1;
 let gameOverFlag = false;
 let gameStarted = false;
 let startButton;
+let bossLevelLoaded = false;
 let stars = [];
 
 function setup() {
@@ -52,10 +53,11 @@ function draw() {
                         break;
                     }
                 }
+            }
 
-                if (score <= 300) {
-                    loadScript('bosslevel.js');
-                }
+            if (score >= 300 && !bossLevelLoaded) {
+                loadScript('bosslevel.js');
+                bossLevelLoaded = true;
             }
 
             y += spaceshipYSpeed;
