@@ -21,6 +21,7 @@ function setup() {
     noStroke();
 }
 
+// Game playing
 function draw() {
     if (!gameStarted) {
         drawStartScreen();
@@ -50,6 +51,10 @@ function draw() {
                         score += 10;
                         break;
                     }
+                }
+
+                if (score <= 300) {
+                    loadScript('bosslevel.js');
                 }
             }
 
@@ -235,6 +240,12 @@ function drawStartScreen() {
     text("Space Shooter", width / 2, height / 2 - 50);
     textSize(20);
     text("Press Start to begin", width / 2, height / 2 + 50);
+}
+
+function loadScript(url) {
+    let script = document.createElement('script');
+    script.src = url;
+    document.body.appendChild(script);
 }
 
 function generateStars() {
