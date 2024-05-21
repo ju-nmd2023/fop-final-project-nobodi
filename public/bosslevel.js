@@ -1,5 +1,5 @@
 let mothership;
-let gameObjects = [];
+let gameObjectsBoss = [];
 let x = 100;
 let y = 200;
 let spaceshipYSpeed = 0;
@@ -104,20 +104,20 @@ function draw() {
         mothership.move();
 
         if (!gameOverFlag) {
-            for (let i = gameObjects.length - 1; i >= 0; i--) {
-                gameObjects[i].display();
-                gameObjects[i].move();
+            for (let i = gameObjectsBoss.length - 1; i >= 0; i--) {
+                gameObjectsBoss[i].display();
+                gameObjectsBoss[i].move();
 
                 // ---
-                if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 200) {
+                if (dist(gameObjectsBoss[i].x, gameObjectsBoss[i].y, x, y) < 200) {
                     gameOver();
                     console.log(x + "," + y);
                 }
 
                 // Contact Light shot/Mothership (unfin)
                 for (let j = lightShots.length - 1; j >= 0; j--) {
-                    if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
-                        gameObjects.splice(i, 1);
+                    if (dist(gameObjectsBoss[i].x, gameObjectsBoss[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+                        gameObjectsBoss.splice(i, 1);
                         score += 10;
                         break;
                     }
@@ -136,7 +136,7 @@ function draw() {
     let y = Math.random() * height;
     let newUfo = new Ufo(600, y);
     newUfo.timer = newUfo.delay;
-    gameObjects.push(newUfo);
+    gameObjectsBoss.push(newUfo);
 } */
 
 function spaceship() {

@@ -55,8 +55,8 @@ function draw() {
                 }
             }
 
-            if (score >= 300 && !bossLevelLoaded) {
-                loadScript('bosslevel.js');
+            if (score >= 100 && !bossLevelLoaded) {
+                loadScript('/public/bosslevel.js');
                 bossLevelLoaded = true;
             }
 
@@ -247,6 +247,12 @@ function drawStartScreen() {
 function loadScript(url) {
     let script = document.createElement('script');
     script.src = url;
+    script.onload = function() {
+        console.log(`${url} has been loaded successfully`);
+    };
+    script.onerror = function() {
+        console.log(`Failed to load ${url}`);
+    };
     document.body.appendChild(script);
 }
 
