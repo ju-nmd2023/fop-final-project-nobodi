@@ -96,7 +96,7 @@ function draw() {
                 console.log("Score threshold reached.")
                 if (!mothership) {
                     ("Spawning mothership.")
-                    mothership = new Mothership(600, 300);  // Initialize the Mothership
+                    mothership = new Mothership(900, 300);  // Initialize the Mothership
                 }
 
                 mothership.display();
