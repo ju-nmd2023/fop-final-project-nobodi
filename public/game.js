@@ -21,7 +21,7 @@ function setup() {
     createStartScreen();
     generateStars(); 
     noStroke();
-    mothership = new Mothership(600, 300);  // Initialize the Mothership
+    mothership = null;
 }
 
 class Mothership {
@@ -93,6 +93,12 @@ function draw() {
                     }
                 }
             } else {
+                console.log("Score threshold reached.")
+                if (!mothership) {
+                    ("Spawning mothership.")
+                    mothership = new Mothership(600, 300);  // Initialize the Mothership
+                }
+
                 mothership.display();
                 mothership.move();
 
@@ -153,7 +159,7 @@ class Ufo {
 }  
 
 function spawnUfo() {
-    if (score < 100) {  // Only spawn UFOs if the score is less than 10
+    if (score < 150) {  // Only spawn UFOs if the score is less than 10
         let y = Math.random() * height;
         let newUfo = new Ufo(1200, y);
         newUfo.timer = newUfo.delay;
