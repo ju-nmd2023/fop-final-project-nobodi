@@ -1,3 +1,4 @@
+let mothership;
 let gameObjects = [];
 let x = 100;
 let y = 200;
@@ -22,7 +23,42 @@ function setup() {
     noStroke();
 }
 
-// Game playing
+class Mothership {
+    constructor(x, y) {
+        this.x = 600;
+        this.y = y;
+        this.width = 200;
+        this.height = 100;
+        this.verticalSpeed = 6;
+        this.timer = 0;
+        this.verticalDirection = 1;
+    }
+
+    display() {
+        fill(200, 0, 0);
+        arc(this.x, this.y + 20, this.width, this.height, PI, PI + PI, PIE);
+        fill(0, 200, 255);
+        arc(this.x, this.y - 20, this.width * 0.2, this.height * 0.4, PI, PI + PI, PIE);
+        fill(255, 255, 0);
+        ellipse(this.x, this.y, 20);
+        ellipse(this.x - 65, this.y, 20);
+        ellipse(this.x - 35, this.y, 20);
+        ellipse(this.x + 35, this.y, 20);
+        ellipse(this.x + 65, this.y, 20);
+    }
+    
+    move() {
+        this.timer++;
+        if (this.timer) {
+            this.y += this.verticalSpeed * this.verticalDirection;
+        }
+        if (this.y <= 100 || this.y >= 400) {
+            this.verticalDirection *= -1;
+        }
+    }
+}
+
+// GAME ENGINE
 function draw() {
     if (!gameStarted) {
         drawStartScreen();
@@ -55,9 +91,9 @@ function draw() {
                 }
             }
 
-            if (score >= 100 && !bossLevelLoaded) {
-                loadScript('/public/bosslevel.js');
-                bossLevelLoaded = true;
+
+            if (score >= 10) {
+                let firstItem = myStrings.shift();
             }
 
             y += spaceshipYSpeed;
@@ -98,7 +134,7 @@ class Ufo {
             this.x += this.moveSpeed; 
         }
     }
-}
+} 
 
 function spawnUfo() {
     let y = Math.random() * height;
@@ -244,7 +280,7 @@ function drawStartScreen() {
     text("Press Start to begin", width / 2, height / 2 + 50);
 }
 
-function loadScript(url) {
+/* function loadScript(url) {
     let script = document.createElement('script');
     script.src = url;
     script.onload = function() {
@@ -254,7 +290,7 @@ function loadScript(url) {
         console.log(`Failed to load ${url}`);
     };
     document.body.appendChild(script);
-}
+} */
 
 function generateStars() {
     for (let i = 0; i < 200; i++) {
