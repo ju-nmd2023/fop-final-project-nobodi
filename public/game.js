@@ -91,7 +91,6 @@ function draw() {
                 }
             }
 
-
             if (score >= 10) {
                 let firstItem = myStrings.shift();
             }
@@ -256,7 +255,10 @@ function gameOver() {
     textAlign(CENTER);
     textSize(50);
     fill(255);
-    text("Game Over", width / 2, height / 2); 
+    text("Game Over", width / 2, height / 3);
+    startOverButton = createButton('Start Over');
+    startOverButton.position(width / 2, height / 2);
+    startOverButton.mousePressed(drawStartScreen);
 }
 
 function createStartScreen() {
@@ -270,7 +272,7 @@ function startGame() {
     startButton.remove(); // Remove the start button
 }
 
-function drawStartScreen() { 
+function drawStartScreen() {
     background(0); 
     textAlign(CENTER);
     textSize(50);
