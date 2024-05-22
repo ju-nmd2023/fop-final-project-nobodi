@@ -21,11 +21,12 @@ function setup() {
     createStartScreen();
     generateStars(); 
     noStroke();
+    mothership = new Mothership(600, 300);  // Initialize the Mothership
 }
 
 class Mothership {
     constructor(x, y) {
-        this.x = 600;
+        this.x = x;
         this.y = y;
         this.width = 200;
         this.height = 100;
@@ -71,29 +72,44 @@ function draw() {
         displayLightShots();
 
         if (!gameOverFlag) {
-            for (let i = gameObjects.length - 1; i >= 0; i--) {
-                gameObjects[i].display();
-                gameObjects[i].move();
+            if (score < 150) {
+                for (let i = gameObjects.length - 1; i >= 0; i--) {
+                    gameObjects[i].display();
+                    gameObjects[i].move();
 
-                // Collision Spaceship/UFO
-                if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 200) {
+                    // Collision Spaceship/UFO
+                    if (dist(gameObjects[i].x, gameObjects[i].y, x, y) < 200) {
+                        gameOver();
+                        console.log(x + "," + y);
+                    }
+
+                    // Contact Light shot/UFO
+                    for (let j = lightShots.length - 1; j >= 0; j--) {
+                        if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
+                            gameObjects.splice(i, 1);
+                            score += 10;
+                            break;
+                        }
+                    }
+                }
+            } else {
+                mothership.display();
+                mothership.move();
+
+                // Collision Spaceship/Mothership
+                if (dist(mothership.x, mothership.y, x, y) < 200) {
                     gameOver();
                     console.log(x + "," + y);
                 }
 
-                // Contact Light shot/UFO
+                // Contact Light shot/Mothership
                 for (let j = lightShots.length - 1; j >= 0; j--) {
-                    if (dist(gameObjects[i].x, gameObjects[i].y, lightShots[j].x, lightShots[j].y) < 50) {
-                        gameObjects.splice(i, 1);
-                        score += 10;
+                    if (dist(mothership.x, mothership.y, lightShots[j].x, lightShots[j].y) < 50) {
+                        score += 50;
+                        mothership = null;  // Remove the mothership after it's hit
                         break;
                     }
                 }
-            }
-
-
-            if (score >= 10) {
-                let firstItem = myStrings.shift();
             }
 
             y += spaceshipYSpeed;
@@ -110,7 +126,7 @@ class Ufo {
         this.y = y;
         this.width = 100;
         this.height = 50;
-        this.moveSpeed = -5;
+        this.moveSpeed = -10;
         this.delay = 800;
         this.timer = 0;
     }
@@ -134,13 +150,15 @@ class Ufo {
             this.x += this.moveSpeed; 
         }
     }
-} 
+}  
 
 function spawnUfo() {
-    let y = Math.random() * height;
-    let newUfo = new Ufo(1200, y);
-    newUfo.timer = newUfo.delay;
-    gameObjects.push(newUfo);
+    if (score < 100) {  // Only spawn UFOs if the score is less than 10
+        let y = Math.random() * height;
+        let newUfo = new Ufo(1200, y);
+        newUfo.timer = newUfo.delay;
+        gameObjects.push(newUfo);
+    }
 }
 
 function spaceship() {
@@ -279,18 +297,6 @@ function drawStartScreen() {
     textSize(20);
     text("Press Start to begin", width / 2, height / 2 + 50);
 }
-
-/* function loadScript(url) {
-    let script = document.createElement('script');
-    script.src = url;
-    script.onload = function() {
-        console.log(`${url} has been loaded successfully`);
-    };
-    script.onerror = function() {
-        console.log(`Failed to load ${url}`);
-    };
-    document.body.appendChild(script);
-} */
 
 function generateStars() {
     for (let i = 0; i < 200; i++) {

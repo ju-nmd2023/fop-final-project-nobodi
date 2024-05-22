@@ -20,7 +20,7 @@ function setup() {
     createStatScreen();
     generateStars(); 
     noStroke();
-} 
+}  
 
 function jets() {
     // yellow
