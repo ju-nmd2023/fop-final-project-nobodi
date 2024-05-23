@@ -341,6 +341,9 @@ function drawStartScreen() {
     text("Space Shooter", width / 2, height / 2 - 50);
     textSize(20);
     text("Press Start to begin", width / 2, height / 2 + 50);
+    textSize(16);
+    text("ARROW KEYS: Move up and down", width / 2, height / 2 + 100);
+    text("SPACE: Shoot", width / 2, height / 2 + 120);
 }
 
 function generateStars() {
