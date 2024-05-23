@@ -12,7 +12,6 @@ let level = 1;
 let gameOverFlag = false;
 let gameStarted = false;
 let startButton;
-let bossLevelLoaded = false;
 let stars = [];
 
 function setup() {
@@ -364,3 +363,18 @@ function drawStars() {
         ellipse(star.x, star.y, star.size);
     }
 }
+
+// Running the script
+
+const http = require('http');
+
+const server = http.createServer((req, res) => {
+  res.statusCode = 200;
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Hello World");
+});
+
+const port = 5500;
+server.listen(port, () => {
+  console.log(`Server running at http://localhost:${port}/`);
+});
