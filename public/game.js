@@ -159,7 +159,7 @@ class Ufo {
 }  
 
 function spawnUfo() {
-    if (score < 150) {  // Only spawn UFOs if the score is less than 10
+    if (score < 150) {  // Only spawn UFOs if the score is less than 150
         let y = Math.random() * height;
         let newUfo = new Ufo(1200, y);
         newUfo.timer = newUfo.delay;
