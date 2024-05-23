@@ -122,7 +122,7 @@ function draw() {
                 console.log("Score threshold reached.");
                 if (!mothership) {
                     console.log("Spawning mothership.");
-                    mothership = new Mothership(900, 300);  // Initialize the Mothership
+                    mothership = new Mothership(900, 300);
                 }
 
                 mothership.display();
@@ -138,15 +138,17 @@ function draw() {
                 for (let j = lightShots.length - 1; j >= 0; j--) {
                     if (dist(mothership.x, mothership.y, lightShots[j].x, lightShots[j].y) < 50) {
                         score += 50;
-                        mothership = null;  // Remove the mothership after it's hit
+                        mothership = null;
                         break;
                     }
                 }
 
+                // Lasers shot from Mothership
                 for (let k = lasers.length - 1; k >= 0; k--) {
                     lasers[k].display();
                     lasers[k].move();
-                    
+
+                    // Contact Laser/Spaceship
                     if (dist(lasers[k].x, lasers[k].y, x, y) < 50) {
                         gameOver();
                         console.log(x + "," + y);
