@@ -5,6 +5,7 @@ let y = 200;
 let spaceshipYSpeed = 0;
 const spaceshipYSpeedIncrement = 10;
 let lightShots = [];
+let lasers = [];
 let score = 0;
 let lives = 2;
 let level = 1;
@@ -24,6 +25,24 @@ function setup() {
     mothership = null;
 }
 
+class Laser {
+    constructor(x, y) {
+        this.x = x;
+        this.y = y;
+        this.size = 20;
+        this.speed = -20;
+    }
+
+    display() {
+        fill(230, 10, 0);
+        rect(this.x, this.y, this.size, this.size);
+    }
+
+    move() {
+        this.x += this.speed;
+    }
+}
+
 class Mothership {
     constructor(x, y) {
         this.x = x;
@@ -32,6 +51,7 @@ class Mothership {
         this.height = 100;
         this.verticalSpeed = 6;
         this.timer = 0;
+        this.fireRate = 60;
         this.verticalDirection = 1;
     }
 
@@ -50,12 +70,18 @@ class Mothership {
     
     move() {
         this.timer++;
-        if (this.timer) {
-            this.y += this.verticalSpeed * this.verticalDirection;
+        if (this.timer % this.fireRate === 0) {
+            this.fireLaser();
         }
-        if (this.y <= 100 || this.y >= 400) {
+        this.y += this.verticalSpeed * this.verticalDirection;
+        if (this.y <= 100 || this.y >= 600) {
             this.verticalDirection *= -1;
         }
+    }
+
+    fireLaser() {
+        let laser = new Laser(this.x - 100, this.y);
+        lasers.push(laser);
     }
 }
 
@@ -93,9 +119,9 @@ function draw() {
                     }
                 }
             } else {
-                console.log("Score threshold reached.")
+                console.log("Score threshold reached.");
                 if (!mothership) {
-                    ("Spawning mothership.")
+                    console.log("Spawning mothership.");
                     mothership = new Mothership(900, 300);  // Initialize the Mothership
                 }
 
@@ -114,6 +140,16 @@ function draw() {
                         score += 50;
                         mothership = null;  // Remove the mothership after it's hit
                         break;
+                    }
+                }
+
+                for (let k = lasers.length - 1; k >= 0; k--) {
+                    lasers[k].display();
+                    lasers[k].move();
+                    
+                    if (dist(lasers[k].x, lasers[k].y, x, y) < 50) {
+                        gameOver();
+                        console.log(x + "," + y);
                     }
                 }
             }
