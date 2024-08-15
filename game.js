@@ -1,3 +1,10 @@
+/*
+ * This code includes contributions from ChatGPT by OpenAI.
+ * ChatGPT provided assistance with game logic, class structure, 
+ * and handling user interactions.
+ * (Date of assistance: August 15, 2024)
+ */
+
 let mothership;
 let gameObjects = [];
 let x = 100;
@@ -24,7 +31,7 @@ function setup() {
     mothership = null;
 }
 
-class Laser {
+class Laser { 
     constructor(x, y) {
         this.x = x;
         this.y = y;
